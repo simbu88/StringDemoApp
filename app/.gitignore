@@ -1,0 +1,3 @@
+/build
+# ignore Google map api
+google_maps_api.xml
