@@ -10,11 +10,18 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import com.example.mapapp.Api.ApiUtilis
+import com.example.mapapp.databinding.ActivityMapsBinding
+import com.example.mapapp.model.WeatherModel
 import com.example.mapapp.receiver.GeofenceBroadcastReceiver
+import com.example.mapapp.viewModel.WeatherViewModel
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -34,6 +41,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     lateinit var geofencingClient: GeofencingClient
     private val geofenceList = mutableListOf<Geofence>()
+    private lateinit var weatherViewModel: WeatherViewModel
+    private lateinit var databinding: ActivityMapsBinding
+    private lateinit var weatherModel: WeatherModel
 
     private val geofencePendingIntent: PendingIntent by lazy {
         val intent = Intent(this, GeofenceBroadcastReceiver::class.java)
@@ -49,11 +59,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_maps)
+        databinding = DataBindingUtil.setContentView(this, R.layout.activity_maps)
         mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
         geofencingClient = LocationServices.getGeofencingClient(this)
-
+        setUpViewModel()
+        handleOpenWeatherApi()
         //check permission
         if (ActivityCompat.checkSelfPermission(
                 this,
@@ -71,6 +82,52 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 REQUEST_CODE
             )
         }
+    }
+
+    private fun setUpViewModel() {
+        weatherViewModel = ViewModelProvider(
+            this,
+                ViewModelFactory(
+                    ApiUtilis().getAPIServiceInKotlin(),
+                this.application))[WeatherViewModel::class.java]
+    }
+
+
+    private fun handleOpenWeatherApi() {
+        weatherViewModel.getWeatherData(lat = 25.4670, long = 91.3662).observe(this){
+            it.let { resource ->
+                when (resource.status) {
+                    Status.LOADING -> {
+                        databinding.progressBar.visibility = View.VISIBLE
+                    }
+                    Status.SUCCESS -> {
+                        databinding.progressBar.visibility = View.GONE
+                        handleResponse(it.data)
+                    }
+                    Status.ERROR -> {
+
+                        databinding.progressBar.visibility = View.GONE
+                    }
+                }
+
+            }
+        }
+
+    }
+
+    private fun handleResponse(weatherModel: WeatherModel?) {
+
+        databinding.apply {
+           degreeTxt.text = kelvinToCelsius(weatherModel?.main!!.temp).toString().plus(" ").plus(getString(R.string.degree))
+            cloud.text = weatherModel.weather[0].description.plus(" ").plus("will be visible")
+        }
+
+    }
+
+    // Function to convert Kelvin to Celsius
+    fun kelvinToCelsius(kelvin: Double): Int {
+        var celcius = kelvin - 273.15
+        return celcius.toInt()
     }
 
     @SuppressLint("MissingPermission")
