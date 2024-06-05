@@ -25,7 +25,6 @@ import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.tasks.Task
-import kotlinx.android.synthetic.main.activity_maps.*
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -138,8 +137,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_EXIT)
                     .build()
             )
-            drawCircleOnMap(latLng)
-            addGeofenceRequest()
+
+            addGeofenceRequest(latLng)
         }
     }
 
@@ -155,11 +154,30 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20f))
         mMap.addMarker(MarkerOptions().position(latLng))
         mMap.addCircle(circleOptions)
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
+        mMap.isMyLocationEnabled = true
     }
 
     @SuppressLint("MissingPermission")
-    private fun addGeofenceRequest() {
+    private fun addGeofenceRequest(latLng: LatLng) {
         geofencingClient.addGeofences(getGeofenceRequest(), geofencePendingIntent).run {
+            drawCircleOnMap(latLng)
             addOnSuccessListener {
                 Toast.makeText(
                     this@MapsActivity,
@@ -168,8 +186,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 ).show()
             }
             addOnFailureListener {
-                Log.e("Error", it.localizedMessage)
-                Toast.makeText(this@MapsActivity, it.message, Toast.LENGTH_SHORT).show()
+                Log.e("Error", it.localizedMessage +": Geofence is added failed")
+                Toast.makeText(this@MapsActivity, it.message+": Geofence is added failed", Toast.LENGTH_SHORT).show()
             }
         }
     }

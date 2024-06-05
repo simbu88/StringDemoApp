@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -17,10 +17,10 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildFeatures{
-        viewBinding true
+    dataBinding {
+        enabled = true
     }
-
+    namespace 'com.example.mapapp'
     buildTypes {
         release {
             minifyEnabled false
@@ -28,11 +28,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility 17
+        sourceCompatibility 17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
 }
 
@@ -49,6 +49,10 @@ dependencies {
     //Google Map
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.gms:play-services-location:18.0.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
+
+
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
