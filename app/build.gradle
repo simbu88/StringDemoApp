@@ -9,7 +9,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.mapapp"
+        applicationId "com.example.sampleapp"
         minSdkVersion 23
         targetSdkVersion 34
         versionCode 1
@@ -20,7 +20,7 @@ android {
     dataBinding {
         enabled = true
     }
-    namespace 'com.example.mapapp'
+    namespace 'com.example.sampleapp'
     buildTypes {
         release {
             minifyEnabled false

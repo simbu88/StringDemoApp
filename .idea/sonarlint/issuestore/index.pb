@@ -28,3 +28,23 @@ X
 Q.idea/sonarlint/securityhotspotstore/8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d,1\0\10a03f31c4dce92cb371e761ce9429428bb6c176
 z
 Japp/src/main/java/com/example/mapapp/receiver/GeofenceBroadcastReceiver.kt,d\5\d5d9f2c7c55548be0f903fe086ca760e5c1aec3d
+P
+ app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
+d
+4app/src/main/java/com/example/mapapp/MapsActivity.kt,7\3\7324bde8414f1840e487a984ff7041470dcff96b
+k
+;app/src/main/java/com/example/mapapp/geonew/MainActivity.kt,0\e\0ec539ecd5a29a9fe0642855e19eb46e3dbae9b5
+x
+Happ/src/main/java/com/example/mapapp/geonew/GeofenceBroadcastReceiver.kt,3\4\34dac9ed9445e0753c37f71036fe999e9ca5b4d5
+m
+=app/src/main/java/com/example/mapapp/geonew/GeofenceHelper.kt,c\1\c1d83a38b0db4e66a25f3687fdc214cc1f4c40f6
+g
+7app/src/main/java/com/example/sampleapp/MapsActivity.kt,1\f\1f74673019a0626dfb1ac3ce40e9538bf67d0eb3
+g
+7app/src/main/java/com/example/sampleapp/MainActivity.kt,7\a\7a06008e048810818b2c37bea0003c958d6fefbc
+@
+app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
+y
+Iapp/src/androidTest/java/com/example/sampleapp/ExampleInstrumentedTest.kt,d\c\dcdd8ba251a3fbc48400dcc172d30b203573d004
+j
+:app/src/test/java/com/example/sampleapp/ExampleUnitTest.kt,4\e\4e0ddcbf2b8f7830a2c7afeee61ef1d13646ad75

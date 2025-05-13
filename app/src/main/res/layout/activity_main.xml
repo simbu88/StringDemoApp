@@ -1,69 +1,88 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) 2018 Razeware LLC
-  ~
-  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
-  ~ of this software and associated documentation files (the "Software"), to deal
-  ~ in the Software without restriction, including without limitation the rights
-  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-  ~ copies of the Software, and to permit persons to whom the Software is
-  ~ furnished to do so, subject to the following conditions:
-  ~
-  ~ The above copyright notice and this permission notice shall be included in
-  ~ all copies or substantial portions of the Software.
-  ~
-  ~ Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
-  ~ distribute, sublicense, create a derivative work, and/or sell copies of the
-  ~ Software in any work that is designed, intended, or marketed for pedagogical or
-  ~ instructional purposes related to programming, coding, application development,
-  ~ or information technology.  Permission for such use, copying, modification,
-  ~ merger, publication, distribution, sublicensing, creation of derivative works,
-  ~ or sale is expressly withheld.
-  ~
-  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-  ~ THE SOFTWARE.
-  -->
-<layout>
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/main"
+    <data>
+        <!-- Declare variables here if using two-way binding (optional for this case) -->
+    </data>
+
+    <LinearLayout
+        android:id="@+id/layoutRoot"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="24dp"
+        android:orientation="vertical"
+        android:background="#f0f0f0">
 
-        <fragment
-            android:id="@+id/map"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
+        <EditText
+            android:id="@+id/inputEditText"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:hint="Enter your string"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textColorHint="@color/colorReminderFill"/>
+
+        <TextView
+            android:id="@+id/errorTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ff0000"
+            android:visibility="gone"
+            android:text="Invalid input: Only alphanumeric characters and spaces allowed" />
+
+        <TextView
+            android:id="@+id/outputTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:paddingTop="16dp" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            android:orientation="vertical"
-            app:layout_dodgeInsetEdges="bottom">
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/currentLocation"
+            <Button
+                android:id="@+id/btnLength"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/fab_margin"
-                app:srcCompat="@drawable/ic_baseline_my_location_24px" />
+                android:text="Length" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/newReminder"
+            <Button
+                android:id="@+id/btnReverse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/fab_margin"
-                app:srcCompat="@drawable/ic_baseline_add_24px" />
+                android:text="Reverse"
+                android:layout_marginStart="8dp" />
+
+            <Button
+                android:id="@+id/btnAppend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Append"
+                android:layout_marginStart="8dp" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            <Button
+                android:id="@+id/btnNumeric"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Numeric" />
+
+            <Button
+                android:id="@+id/btnClear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Clear"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+    </LinearLayout>
 </layout>
