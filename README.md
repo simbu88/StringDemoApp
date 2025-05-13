@@ -1,5 +1,5 @@
 # GoogleMapApp
-a sample app that use google map and geofence API.
+a sample app string app 
 
 ## Screenshot
 
